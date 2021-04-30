@@ -9,7 +9,7 @@ if not os.path.isfile(sys.argv[1]):
     raise IOError('Invalid file specified')
 
 SEVERITIES_TO_IGNORE = ''
-if os.path.isfile(sys.argv[2]):
+if len(sys.argv) >= 3:
     SEVERITIES_TO_IGNORE = [x.strip() for x in sys.argv[2].split(',')]
 
 RUNNER_WORKSPACE = os.environ['RUNNER_WORKSPACE']
