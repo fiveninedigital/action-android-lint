@@ -1,25 +1,34 @@
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  ci:
-    name: CI Build
+  ignore_information:
+    name: Report ignores information
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Report ignores info and warnings
-        uses: ./
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          lint_xml_file: lint-results-sample.xml
-          severities_to_ignore: "Information, Warning"
-
-      - name: Report ignores info
+      - name: Report
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           lint_xml_file: lint-results-sample.xml
           severities_to_ignore: "Information"
+          level: warning
+
+  ignore_information_warning:
+    name: Report ignores information & warning
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Report
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          lint_xml_file: lint-results-sample.xml
+          severities_to_ignore: "Information, Warning"
+          level: warning
