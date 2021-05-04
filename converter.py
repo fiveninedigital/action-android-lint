@@ -24,11 +24,11 @@ for issue in ET.parse(sys.argv[1]).getroot().iter('issue'):
     if '.gradle/caches' in issue[0].attrib['file']:
         continue
 
-    if 'severity' in issue.attrib['severity']:
+    file.attrib['name'] = issue[0].attrib['file'].replace(f'{RUNNER_WORKSPACE}/{REPO_NAME}/', '')
+
+    if 'severity' in issue.attrib:
         if issue.attrib['severity'] in SEVERITIES_TO_IGNORE:
             continue
-
-    file.attrib['name'] = issue[0].attrib['file'].replace(f'{RUNNER_WORKSPACE}/{REPO_NAME}/', '')
 
     error = ET.SubElement(file, 'error')
 
